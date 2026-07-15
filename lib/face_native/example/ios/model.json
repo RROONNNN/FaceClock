@@ -1,0 +1,49 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:3435373668497497088",
+      "lastPropertyId": "4:2065963857982075136",
+      "name": "FaceImageRecord",
+      "properties": [
+        {
+          "id": "1:3047275502911606784",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6584187064457797376",
+          "name": "empId",
+          "indexId": "1:5184847022211420160",
+          "type": 6,
+          "flags": 8
+        },
+        {
+          "id": "3:3971235531080994048",
+          "name": "personName",
+          "type": 9
+        },
+        {
+          "id": "4:2065963857982075136",
+          "name": "faceEmbedding",
+          "type": 28
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:3435373668497497088",
+  "lastIndexId": "1:5184847022211420160",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

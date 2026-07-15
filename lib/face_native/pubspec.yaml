@@ -1,0 +1,32 @@
+name: face_native
+description: "A new Flutter plugin project."
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: ^3.5.4
+  flutter: ">=3.3.0"
+
+dependencies:
+  exif: ^3.3.0
+  flutter:
+    sdk: flutter
+  image: ^4.0.17
+  path: ^1.8.3
+  path_provider: ^2.1.5
+  plugin_platform_interface: ^2.0.2
+  camera: ^0.11.0+2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.example.face_native
+        pluginClass: FaceNativePlugin
+      ios:
+        pluginClass: FaceNativePlugin
