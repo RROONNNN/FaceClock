@@ -3,8 +3,7 @@ import Foundation
 
 class ObjectBoxStore {
     private static var _store: Store?
-    private static var currentTenantKey: String?
-    
+
     static var store: Store {
         get throws {
             guard let store = _store else {
@@ -18,27 +17,19 @@ class ObjectBoxStore {
         return _store != nil
     }
     
-    static func initialize(tenantKey: String) -> Bool {
-        // Check if already initialized with the same tenant key
-        if isInitialized && currentTenantKey == tenantKey {
-            print("ObjectBoxStore: Already initialized with same tenant key: \(tenantKey)")
+    static func initialize() -> Bool {
+        if isInitialized {
+            print("ObjectBoxStore: Already initialized")
             return true
         }
-        
-        // Close existing store if initialized with different tenant key
-        if isInitialized && currentTenantKey != tenantKey {
-            print("ObjectBoxStore: Re-initializing ObjectBoxStore with new tenant key: \(tenantKey)")
-            close()
-        }
-        
+
         do {
-            print("ObjectBoxStore: Initializing ObjectBoxStore with tenant key: \(tenantKey)")
-            
-            // Create directory for the specific tenant
+            print("ObjectBoxStore: Initializing ObjectBoxStore")
+
             let fileManager = FileManager.default
             let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let objectBoxDir = documentsURL.appendingPathComponent("objectbox_\(tenantKey)")
-            
+            let objectBoxDir = documentsURL.appendingPathComponent("objectbox")
+
             // Create directory if it doesn't exist
             if !fileManager.fileExists(atPath: objectBoxDir.path) {
                 try fileManager.createDirectory(at: objectBoxDir, withIntermediateDirectories: true)
@@ -47,8 +38,7 @@ class ObjectBoxStore {
             // Initialize ObjectBox store using generated convenience initializer
             // The EntityInfo.generated.swift file provides Store(directoryPath:) initializer
             _store = try Store(directoryPath: objectBoxDir.path)
-            currentTenantKey = tenantKey
-            
+
             print("ObjectBoxStore: Successfully initialized at \(objectBoxDir.path)")
             return true
         } catch {
@@ -64,7 +54,6 @@ class ObjectBoxStore {
             print("ObjectBoxStore: Error closing store - \(error.localizedDescription)")
         }
         _store = nil
-        currentTenantKey = nil
     }
 }
 

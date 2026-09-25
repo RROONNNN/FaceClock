@@ -48,12 +48,9 @@ class MethodChannelFaceNative extends FaceNativePlatform {
   }
 
   @override
-  Future<bool> initObjectBox(
-    String tenantKey,
-  ) async {
+  Future<bool> initObjectBox() async {
     try {
-      final bool result = await platform
-          .invokeMethod('initObjectBox', {'tenantKey': tenantKey});
+      final bool result = await platform.invokeMethod('initObjectBox');
       return result;
     } on PlatformException catch (e) {
       debugPrint('Error in initObjectBox: ${e.message}');

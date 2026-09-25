@@ -795,7 +795,7 @@ Error: $e
 1. Check if SharedPreferences is properly initialized
 2. Verify LocalService is accessible
 3. Check storage permissions
-4. Ensure tenant ID formatting is working correctly
+4. Ensure the storage key is correct
       ''');
     } finally {
       _setLoading(false);

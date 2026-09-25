@@ -38,11 +38,8 @@ class BootstrapCubit extends Cubit<BootstrapState> with EventBusMixin {
       emit(state.copyWith(status: BootstrapStatus.unauthenticated));
       return;
     }
-    final tenantId =
-        await _localService.getTenantIdOrSaveTenant(domain, dbName);
-    await _localService.saveTenantId(tenantId);
-    await FaceNative().initObjectBox(tenantId.toString());
-    await getIt<HiveService>().init(tenantId.toString());
+    await FaceNative().initObjectBox();
+    await getIt<HiveService>().init();
 
     if (token.isEmpty) {
       emit(state.copyWith(status: BootstrapStatus.unauthenticated));

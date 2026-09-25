@@ -7,7 +7,7 @@ public class FaceNativePlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "face_native", binaryMessenger: registrar.messenger())
     let instance = FaceNativePlugin()
-    ObjectBoxStore.initialize(tenantKey: "test")
+    _ = ObjectBoxStore.initialize()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
@@ -36,17 +36,11 @@ public class FaceNativePlugin: NSObject, FlutterPlugin {
       result("iOS " + UIDevice.current.systemVersion)
       
     case "initObjectBox":
-      guard let args = call.arguments as? [String: Any],
-            let tenantKey = args["tenantKey"] as? String else {
-        result(FlutterError(code: "INVALID_ARGUMENTS", message: "TenantKey is required", details: nil))
-        return
-      }
-      
-     let isInitialized = ObjectBoxStore.initialize(tenantKey: tenantKey)
+     let isInitialized = ObjectBoxStore.initialize()
       if isInitialized {
         result(true)
       } else {
-        result(FlutterError(code: "INIT_OBJECT_BOX_ERROR", message: "Failed to initialize ObjectBox with tenant key: \(tenantKey)", details: nil))
+        result(FlutterError(code: "INIT_OBJECT_BOX_ERROR", message: "Failed to initialize ObjectBox", details: nil))
       }
       case "getFaceImageRecordByListEmpId" :
       guard let args = call.arguments as? [String: Any],

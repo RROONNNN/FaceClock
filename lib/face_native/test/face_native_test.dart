@@ -82,7 +82,7 @@ class MockFaceNativePlatform with MockPlatformInterfaceMixin implements FaceNati
   }
 
   @override
-  Future<bool> initObjectBox(String tenantKey) {
+  Future<bool> initObjectBox() {
     // TODO: implement initObjectBox
     throw UnimplementedError();
   }

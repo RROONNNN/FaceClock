@@ -10,8 +10,8 @@ class FaceNative {
     return FaceNativePlatform.instance.getPlatformVersion();
   }
 
-  Future<bool> initObjectBox(String tenantKey) {
-    return FaceNativePlatform.instance.initObjectBox(tenantKey);
+  Future<bool> initObjectBox() {
+    return FaceNativePlatform.instance.initObjectBox();
   }
 
   Future<List<FaceImageRecord>> getAllImages() {

@@ -12,9 +12,7 @@ class SharedPrefsKey {
   static const String licenseKey = 'licenseKey';
   static const String pinApp = 'pinApp';
   static const String dbName = 'dbName';
-  static const String tenantId = 'tenantId';
-  static const String latestTimePullFaceData =
-      'latestTimePullFaceData'; //+tenantId
+  static const String latestTimePullFaceData = 'latestTimePullFaceData';
   static const String syncFaceSchedule = 'syncFaceSchedule';
   static const String isInitializedDefaultData = 'isInitializedDefaultData';
 }

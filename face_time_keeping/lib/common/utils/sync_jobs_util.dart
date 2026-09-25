@@ -12,7 +12,6 @@ import 'package:face_time_keeping/entities/check_in_out.dart';
 import 'package:face_time_keeping/entities/person.dart';
 import 'package:face_time_keeping/entities/sync_face_schedule.dart';
 import 'package:face_time_keeping/entities/sync_schedule.dart';
-import 'package:face_time_keeping/entities/tenant.dart';
 import 'package:face_time_keeping/localization/generated/intl/messages_all.dart';
 import 'package:face_time_keeping/localization/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
@@ -45,8 +44,7 @@ void callbackDispatcher() {
       if (!Hive.isAdapterRegistered(CheckInOutAdapter().typeId)) {
         Hive
           ..registerAdapter(CheckInOutAdapter())
-          ..registerAdapter(PersonAdapter())
-          ..registerAdapter(TenantAdapter());
+          ..registerAdapter(PersonAdapter());
       }
 
       const String environment = String.fromEnvironment(
@@ -63,8 +61,7 @@ void callbackDispatcher() {
       // await SyncJobsUtil._headlessInitLocalNotifications();
       final hiveService = getIt<HiveService>();
       final localService = getIt<LocalService>();
-      final tenantKey = await localService.getTenantId();
-      await hiveService.init(tenantKey.toString());
+      await hiveService.init();
       // 6) Now it's safe to resolve from GetIt
       final userService = getIt<UserService>();
 

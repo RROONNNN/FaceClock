@@ -47,28 +47,23 @@ class FaceNativePlugin: FlutterPlugin, MethodCallHandler {
    
     when (call.method) {
       "initObjectBox" ->{
-          val tenantKey = call.argument<String>("tenantKey")
-          if (tenantKey != null) {
-              val initSuccess = ObjectBoxStore.init(context, tenantKey)
-              if (initSuccess) {
-                  // Only initialize Koin if ObjectBox init was successful and Koin is not already started
-                  try {
-                      if (org.koin.core.context.GlobalContext.getOrNull() == null) {
-                          startKoin {
-                              androidContext(context)
-                              modules(AppModule().module)
-                          }
+          val initSuccess = ObjectBoxStore.init(context)
+          if (initSuccess) {
+              // Only initialize Koin if ObjectBox init was successful and Koin is not already started
+              try {
+                  if (org.koin.core.context.GlobalContext.getOrNull() == null) {
+                      startKoin {
+                          androidContext(context)
+                          modules(AppModule().module)
                       }
-                      result.success(true)
-                  } catch (e: Exception) {
-                      Log.e("MainActivity", "Failed to initialize Koin", e)
-                      result.error("INIT_KOIN_ERROR", "Failed to initialize dependency injection: ${e.message}", null)
                   }
-              } else {
-                  result.error("INIT_OBJECT_BOX_ERROR", "Failed to initialize ObjectBox", null)
+                  result.success(true)
+              } catch (e: Exception) {
+                  Log.e("MainActivity", "Failed to initialize Koin", e)
+                  result.error("INIT_KOIN_ERROR", "Failed to initialize dependency injection: ${e.message}", null)
               }
           } else {
-              result.error("INIT_OBJECT_BOX_ERROR", "Tenant key is required", null)
+              result.error("INIT_OBJECT_BOX_ERROR", "Failed to initialize ObjectBox", null)
           }
       }
       "getFaceImageRecordByListEmpId" -> {

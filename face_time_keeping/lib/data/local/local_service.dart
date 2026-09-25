@@ -15,7 +15,6 @@ import 'package:face_time_keeping/entities/person.dart';
 import 'package:face_time_keeping/entities/sync_face_schedule.dart';
 import 'package:face_time_keeping/entities/sync_response.dart';
 import 'package:face_time_keeping/entities/sync_schedule.dart';
-import 'package:face_time_keeping/entities/tenant.dart';
 import 'package:face_time_keeping/utils/csv_util.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -67,10 +66,7 @@ abstract class LocalService {
   Future<void> saveDbName(String dbName);
   Future<int?> getUserId();
   Future<void> saveUserId(int userId);
-  Future<int> getTenantIdOrSaveTenant(String url, String dbName);
   Future<File> exportModelToJsonFile({List<Person>? persons});
-  Future<void> saveTenantId(int tenantId);
-  Future<int> getTenantId();
   Future<List<Person>> getPersonsUnSynced();
   Future<DateTime?> getLatestTimePullFaceData();
   Future<void> saveLatestTimePullFaceData(DateTime latestTime);
@@ -100,10 +96,6 @@ class LocalServiceImplement implements LocalService {
       "m7s4wmAI1QVWu4zxHYWpEoq+TLiBfzd76vZg8aq6DGT+TAhSL7wQOkJSmdil9uOCf4SAK7KHMFpOV69yFUMCqkf3odj906Rkcb1q1DLE9aewf86vbbXSTvW+scyi4EklujEGIdtXskzoOH0bbT1xBHQd4uhJ4p6yi+A0x9zfDJ4UBF6gBOEWNtq/boqZOWQZHlYpb4R8aIJkwX2P2AVL3V2y+aP4SKbw2Az6PcSAxv1GMdJgpzkF41/b+ABN5+IWjTXK4emNTaPhlPF6s5m48bXA+tuvFaMYQY+R23h3lL/5rEYilQl7lsE3spr8EAt2X3OgQmyFM0vKBzWkbrK9nA==";
   final CsvUtil _csvUtil;
   late final FaceNative _faceNative;
-  Future<String> _formatWithTenantId(String key) async {
-    final tenantId = await getTenantId();
-    return '$key-$tenantId';
-  }
 
   @override
   Future<void> refreshCheckInOutBox() async {
@@ -233,8 +225,7 @@ class LocalServiceImplement implements LocalService {
   @override
   Future<DateTime?> getLatestTimePullFaceData() async {
     try {
-      final key =
-          await _formatWithTenantId(SharedPrefsKey.latestTimePullFaceData);
+      const key = SharedPrefsKey.latestTimePullFaceData;
       final latestTime = _sharedPreferences.get(key);
       if (latestTime == null) return null;
       return DateTime.parse(latestTime);
@@ -246,8 +237,7 @@ class LocalServiceImplement implements LocalService {
 
   @override
   Future<void> saveLatestTimePullFaceData(DateTime latestTime) async {
-    final key =
-        await _formatWithTenantId(SharedPrefsKey.latestTimePullFaceData);
+    const key = SharedPrefsKey.latestTimePullFaceData;
     await _sharedPreferences.put(
         key, latestTime.toIso8601String().split('.').first);
   }
@@ -260,40 +250,6 @@ class LocalServiceImplement implements LocalService {
       return personsUnSynced;
     } catch (e) {
       await pushLog('Error in getPersonsUnSynced: $e');
-      rethrow;
-    }
-  }
-
-  @override
-  Future<int> getTenantId() async {
-    try {
-      final tenantId = _sharedPreferences.get(SharedPrefsKey.tenantId);
-      if (tenantId == null) {
-        throw Exception('Tenant ID not found');
-      }
-      return tenantId;
-    } catch (e) {
-      await pushLog('Error in getTenantId: $e');
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> saveTenantId(int tenantId) async {
-    await _sharedPreferences.put(SharedPrefsKey.tenantId, tenantId);
-  }
-
-  @override
-  Future<int> getTenantIdOrSaveTenant(String url, String dbName) async {
-    try {
-      final tenantId = await _hiveService.getTenantId(url, dbName);
-      if (tenantId == null) {
-        final tenant = Tenant(url: url, databaseName: dbName);
-        return await _hiveService.addTenant(tenant);
-      }
-      return tenantId;
-    } catch (e) {
-      await pushLog('Error in getTenantIdOrSaveTenant: $e');
       rethrow;
     }
   }
@@ -916,8 +872,6 @@ class LocalServiceImplement implements LocalService {
 
   @override
   Future<void> resetBothLatestTime() async {
-    final formatKeyPull =
-        await _formatWithTenantId(SharedPrefsKey.latestTimePullFaceData);
-    await _sharedPreferences.put(formatKeyPull, null);
+    await _sharedPreferences.put(SharedPrefsKey.latestTimePullFaceData, null);
   }
 }

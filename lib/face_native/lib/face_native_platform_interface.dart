@@ -31,8 +31,8 @@ abstract class FaceNativePlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<bool> initObjectBox(String tenantKey) {
-    return _instance.initObjectBox(tenantKey);
+  Future<bool> initObjectBox() {
+    return _instance.initObjectBox();
   }
 
   Future<List<FaceImageRecord>> getAllImages() {

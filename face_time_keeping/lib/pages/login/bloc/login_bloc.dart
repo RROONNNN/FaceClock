@@ -60,14 +60,11 @@ class LoginBloc extends Cubit<LoginState> {
       if (result.isSuccess) {
         _localService.saveToken(result.data?.token);
         _localService.saveLoginId(state.username);
-        final tenantId = await _localService.getTenantIdOrSaveTenant(
-            _localService.getDomain(), database);
-        _localService.saveTenantId(tenantId);
         // if platform == android
         if (Platform.isAndroid) {
-          await FaceNative().initObjectBox(tenantId.toString());
+          await FaceNative().initObjectBox();
         }
-        await getIt<HiveService>().init(tenantId.toString());
+        await getIt<HiveService>().init();
         emit(state.copyWith(requestStatus: RequestStatus.success));
       } else {
         emit(state.copyWith(
