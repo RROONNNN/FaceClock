@@ -48,7 +48,7 @@ class _BootstrapPageState extends State<BootstrapPage> {
                     children: [
                       Text(
                         textAlign: TextAlign.center,
-                        'Paracel Tech',
+                        'Minh Thuan Tech',
                         style: TextStyles.blackBigBold.copyWith(fontSize: 50),
                       ),
                       const Spacing(),

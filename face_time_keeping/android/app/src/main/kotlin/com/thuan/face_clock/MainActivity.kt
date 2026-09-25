@@ -1,4 +1,4 @@
-package com.paracel.face_timekeeping.face_time_keeping
+package com.thuan.face_clock
 import io.flutter.embedding.android.FlutterActivity
 
 class MainActivity: FlutterActivity()
@@ -8,8 +8,8 @@ class MainActivity: FlutterActivity()
 // import android.graphics.BitmapFactory
 // import android.os.Build
 
-// import com.paracel.face_timekeeping.face_time_keeping.domain.ImageVectorUseCase
-// import com.paracel.face_timekeeping.face_time_keeping.data.FaceImageRecord
+// import com.thuan.face_clock.domain.ImageVectorUseCase
+// import com.thuan.face_clock.data.FaceImageRecord
 // import io.flutter.embedding.android.FlutterActivity
 // import io.flutter.embedding.engine.FlutterEngine
 // import io.flutter.plugin.common.MethodChannel
@@ -20,8 +20,8 @@ class MainActivity: FlutterActivity()
 // import org.koin.android.ext.android.inject
 // import androidx.core.net.toUri
 // import android.util.Log
-// import com.paracel.face_timekeeping.face_time_keeping.data.ObjectBoxStore
-// import com.paracel.face_timekeeping.face_time_keeping.di.AppModule
+// import com.thuan.face_clock.data.ObjectBoxStore
+// import com.thuan.face_clock.di.AppModule
 // import org.koin.android.ext.koin.androidContext
 // import org.koin.core.context.startKoin
 

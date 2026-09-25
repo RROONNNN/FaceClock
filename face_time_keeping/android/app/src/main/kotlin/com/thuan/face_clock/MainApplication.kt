@@ -1,4 +1,4 @@
-package com.paracel.face_timekeeping.face_time_keeping
+package com.thuan.face_clock
 
 import android.app.Application
 

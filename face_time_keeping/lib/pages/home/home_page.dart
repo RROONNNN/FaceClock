@@ -39,7 +39,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _onPinVerified() async {
-    await Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingPage()));
+    await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const SettingPage()));
 
     setState(() {
       _showPinVerification = false;
@@ -126,8 +127,8 @@ class _HomePageState extends State<HomePage> {
               });
               return;
             } else {
-              await Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const SettingPage()));
+              await Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SettingPage()));
             }
           },
           icon: const Icon(Icons.menu, size: 50, color: Colors.black54),
@@ -157,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           const Text(
-                            'Paracel',
+                            'Thuan',
                             style: TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.w600,
@@ -355,7 +356,8 @@ class _PinVerificationPageState extends State<_PinVerificationPage> {
               _errorMessage = 'Quá nhiều lần nhập sai. Vui lòng thử lại sau.';
               _showMaxAttemptsDialog();
             } else {
-              _errorMessage = 'Mã PIN không đúng. Còn lại ${_maxAttempts - _attemptCount} lần thử.';
+              _errorMessage =
+                  'Mã PIN không đúng. Còn lại ${_maxAttempts - _attemptCount} lần thử.';
             }
           });
           HapticFeedback.heavyImpact();
@@ -510,9 +512,13 @@ class _PinDotsDisplay extends StatelessWidget {
           height: 16,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: isFilled ? (hasError ? AppColors.red : AppColors.blue) : AppColors.gray100,
+            color: isFilled
+                ? (hasError ? AppColors.red : AppColors.blue)
+                : AppColors.gray100,
             border: Border.all(
-              color: hasError ? AppColors.red : (isFilled ? AppColors.blue : AppColors.gray200),
+              color: hasError
+                  ? AppColors.red
+                  : (isFilled ? AppColors.blue : AppColors.gray200),
               width: 2,
             ),
           ),
@@ -692,7 +698,8 @@ class _KeypadButton extends StatelessWidget {
                       text ?? '',
                       style: TextStyle(
                         fontSize: isTextButton ? 14 : 24,
-                        fontWeight: isTextButton ? FontWeight.w500 : FontWeight.w600,
+                        fontWeight:
+                            isTextButton ? FontWeight.w500 : FontWeight.w600,
                         color: isEnabled ? AppColors.black : AppColors.gray200,
                       ),
                     ),
